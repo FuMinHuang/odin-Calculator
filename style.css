@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.display {
+    padding: 10px 20px;
+    border: 2px solid;
+    border-radius: 5px;
+    background-color: gray;
+    text-align: right;
+    box-sizing: border-box;
+}
