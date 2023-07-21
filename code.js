@@ -1,32 +1,47 @@
 // Global variables
 let num1 = 0;
 let num2 = 0;
+let result = 0;
 let operator;
+let operatePress = false;
 
 // "add" function
 function add(n1, n2) {
-    return num1 = n1 + n2;    
+    num1 = n1 + n2;
+    num2 = 0;
+    return num1;
 }
 
 // "subtract" function
 function subtract(n1, n2) {
-    return num1 = n1 - n2;
+    num1 = n1 - n2;
+    num2 = 0;
+    return num1;
 }
 
 // "multiply" function
 function multiply(n1, n2) {
-    return num1 = n1 * n2;
+    num1 = n1 * n2;
+    num2 = 0;
+    return num1;
 }
 
 // "divide" function
 function divide(n1, n2) {
-    return num1 = n1 / n2;
+    num1 = n1 / n2;
+    num2 = 0;
+    return num1;
 }
 
 // "operate" function
 function operate() {
-    document.querySelector(".displayScreen").innerHTML = (window[operator](num1, num2));
-    num2 = 0;
+    if (operator == "divide" && num2 == 0) {
+        document.querySelector(".displayScreen").innerHTML = "Can't divide by 0";
+    } else if (operatePress == false && num1 !== 0) {
+        result = window[operator](num1, num2);
+        document.querySelector(".displayScreen").innerHTML = Math.round((result + Number.EPSILON) * 100) /100;
+        operatePress = true;
+    }
 }
 
 // Function to populate the display when click the number buttons
@@ -42,22 +57,22 @@ function displayScreen(event) {
         } else {
             num2 += event.target.innerHTML;
             num2 = +num2;
-            document.querySelector(".displayScreen").innerHTML = num2;
-            
+            operatePress = false;
+            document.querySelector(".displayScreen").innerHTML = num2;            
         }
         
     // If clicked operator buttons
     } else {   
         // After first time clicked operator buttons
-        if (operator != undefined) {
+        if (operator != undefined && num2 !== 0) {
+            operatePress = false;
             operate();
-            num2 = 0;
-            operator = event.target.value;     
-                   
+            operator = event.target.value;   
+
         // First time clicked oeprator buttons
         } else {
-            // displayNumber2 = 0;
             operator = event.target.value;
+            operatePress = false;
             document.querySelector(".displayScreen").innerHTML = event.target.innerHTML;
         }        
     }        
@@ -80,6 +95,10 @@ const clearButton = document.querySelector(".clear");
 clearButton.addEventListener("click", () => {
     num1 = 0;
     num2 = 0;
+    result = 0;
     operator = undefined;
+    operatePress = false;
     document.querySelector(".displayScreen").innerHTML = "";
 })
+
+// When user press down key

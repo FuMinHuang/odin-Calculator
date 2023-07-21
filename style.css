@@ -54,7 +54,7 @@ body {
 
 .number,
 .operator,
-.dot,
+.decimal,
 .operate {
     width: 25%;
     height: 100px;
